@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: url('C:\\Users\\priti bedre\\Desktop\\Project rk\\pubg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            padding: 50px;
+            color: #fff; /* White text for better contrast */
+        }
+
+        #container {
+            background: rgba(0, 0, 0, 0.85); /* Darker transparent background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Text shadow for titles */
+            margin-bottom: 10px; /* Space below headings */
+        }
+
+        input, select {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 90%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #555; /* Darker border for inputs */
+            background: rgba(255, 255, 255, 0.2); /* Slightly transparent background */
+            color: #fff; /* White text for inputs */
+        }
+
+        input::placeholder {
+            color: rgb(255, 238, 0); /* Changed placeholder text color */
+        }
+
+        /* Custom styles for the tournament selection dropdown */
+        select {
+            background: rgba(255, 255, 255, 0.2); /* Background color for dropdown */
+            color: #fff; /* Text color */
+            border: 1px solid rgba(255, 255, 255, 0.5); /* Lighter border color */
+            padding: 10px; /* Padding for better appearance */
+            appearance: none; /* Remove default dropdown arrow */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAABwCAIAAAD6yI2RAAAACXBIWXMAAB7CAAAewgFu0HU+AAABQ0lEQVRo3u3aQY6DMAwFUEf9/2lbk4B7cVRKy62vC3WHe8sZP4BoVVdQhx+e+ADNmDlCExI1RAxRT5YYZGIDJoKaFkURo5+0kgUQCMH93cweD5hBgbNZcgZMOE2BoTYyGRJKHFwFmODMgSkN5tYuowgAAw4w3MABv9EExwQa0ZGAQfHDBEsAAAAAElFTkSuQmCC'); /* Custom dropdown arrow */
+            background-repeat: no-repeat; /* Prevent repeating background image */
+            background-position: right 10px center; /* Position for custom arrow */
+            background-size: 12px; /* Size of the arrow */
+        }
+
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            width: auto;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff4757; /* Vibrant red */
+            color: white;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for buttons */
+        }
+
+        button:hover {
+            background-color: #e84118; /* Darker red on hover */
+            transform: scale(1.05);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        #message {
+            color: rgb(255, 238, 0); /* Changed color for messages */
+            margin: 20px 0;
+            font-size: 18px; /* Larger font size for messages */
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <img src="C:\\Users\\priti bedre\\Desktop\\Project rk\\bgm.jpg" alt="Game Logo">
+        <h1>Welcome to the Battleground Registration</h1>
+        <div id="message"></div>
+
+        <div id="login-form">
+            <h2>Login</h2>
+            <input type="text" id="login-username" placeholder="Username" required style="background: rgb(14, 13, 13); color: rgb(255, 238, 0); border: 1px solid #555;">
+            <input type="password" id="login-password" placeholder="Password" required style="background: rgb(14, 13, 13); color: rgb(255, 238, 0); border: 1px solid #555;">
+            <button onclick="login()">Login</button>
+            <button onclick="toggleForms()">Register</button>
+        </div>
+
+        <div id="registration-form" style="display:none;">
+            <h2>Register</h2>
+            <input type="text" id="register-username" placeholder="Username" required style="background: rgb(14, 13, 13); color: rgb(255, 238, 0); border: 1px solid #555;">
+            <input type="password" id="register-password" placeholder="Password" required style="background: rgb(14, 13, 13); color: rgb(255, 238, 0); border: 1px solid #555;">
+            <input type="number" id="register-age" placeholder="Age" required style="background: rgb(14, 13, 13); color: rgb(255, 238, 0); border: 1px solid #555;">
+            <input type="date" id="register-dob" placeholder="Date of Birth" required style="background: rgb(14, 13, 13); color: rgb(255, 238, 0); border: 1px solid #555;">
+            <input type="text" id="register-email" placeholder="Email" required style="background: rgb(14, 13, 13); color: rgb(255, 238, 0); border: 1px solid #555;">
+            <button onclick="register()">Register</button>
+            <button onclick="toggleForms()">Back to Login</button>
+        </div>
+
+        <div id="tournament-selection" style="display:none;">
+            <h2>Enter Your Player ID</h2>
+            <input type="text" id="player-id" placeholder="Enter your Player ID" required style="background: rgb(14, 13, 13); color: rgb(255, 238, 0); border: 1px solid #555;">
+            
+            <h2>Select a Tournament</h2>
+            <select id="tournament-list" required style="background: rgb(14, 13, 13); color: rgb(255, 238, 0); border: 1px solid #555;">
+                <option value="">Select Tournament</option>
+                <option value="Solos">Solos: The classic game mode</option>
+                <option value="Solos FPP">Solos FPP: First Person Perspective</option>
+                <option value="Duos">Duos: Team up with one partner</option>
+                <option value="Duos FPP">Duos FPP: First Person Perspective</option>
+                <option value="Squads">Squads: Team up with a squad</option>
+                <option value="Squads FPP">Squads FPP: First Person Perspective</option>
+                <option value="Zombies">Zombies: Survive against zombie hordes</option>
+                <option value="War">War: Large scale battle mode</option>
+            </select>
+
+            <button onclick="submitTournament()">Submit</button>
+        </div>
+
+        <button id="logout-button" style="display:none;" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        let loggedIn = false;
+
+        function toggleForms() {
+            const loginForm = document.getElementById('login-form');
+            const registrationForm = document.getElementById('registration-form');
+
+            if (loginForm.style.display === "none") {
+                loginForm.style.display = "block";
+                registrationForm.style.display = "none";
+            } else {
+                loginForm.style.display = "none";
+                registrationForm.style.display = "block";
+            }
+        }
+
+        function login() {
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            if (username && password) {
+                loggedIn = true;
+                document.getElementById('message').innerText = `Welcome, ${username}!`;
+                document.getElementById('logout-button').style.display = "block";
+                document.getElementById('login-form').style.display = "none";
+                document.getElementById('tournament-selection').style.display = "block"; // Show tournament selection
+            }
+        }
+
+        function register() {
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+            const age = document.getElementById('register-age').value;
+            const dob = document.getElementById('register-dob').value;
+            const email = document.getElementById('register-email').value;
+
+            if (username && password && age && dob && email) {
+                document.getElementById('message').innerText = `Registration successful! You can now login.`;
+                toggleForms();
+            }
+        }
+
+        function submitTournament() {
+            const selectedTournament = document.getElementById('tournament-list').value;
+            const playerId = document.getElementById('player-id').value;
+
+            if (selectedTournament && playerId) {
+                document.getElementById('message').innerText = `You have selected ${selectedTournament} and Player ID: ${playerId}. Good luck!`;
+            } else {
+                alert("Please select a tournament and enter your Player ID");
+            }
+        }
+
+        function logout() {
+            loggedIn = false;
+            document.getElementById('message').innerText = "Thank you for visiting! You can register or login again.";
+            document.getElementById('logout-button').style.display = "none";
+            document.getElementById('login-form').style.display = "block";
+            document.getElementById('tournament-selection').style.display = "none"; // Hide tournament selection on logout
+        }
+    </script>
+</body>
+</html>
